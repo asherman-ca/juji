@@ -6,6 +6,8 @@ import User from '../models/userModel.js'
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
+  console.log('starting register controller')
+
   const { name, email, password } = req.body
 
   const userExists = await User.findOne({ email })
@@ -35,6 +37,15 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Private/Admin
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({})
+  res.json(users)
+})
+
 export {
-  registerUser
+  registerUser,
+  getUsers
 }
